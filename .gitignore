@@ -12,6 +12,12 @@
 /prisma/db.sqlite
 /prisma/db.sqlite-journal
 db.sqlite
+*.sqlite
+.sql
+
+# drizzle
+drizzle
+migrations/*
 
 # next.js
 /.next/
