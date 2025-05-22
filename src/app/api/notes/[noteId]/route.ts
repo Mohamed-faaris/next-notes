@@ -11,7 +11,7 @@ export async function POST(
   const res = await db
   .update(notes)
   .set({ content: content })
-  .where(eq(notes.uuid, noteId));
+  .where(eq(notes.id, noteId));
   console.log("noteId", noteId, "content", content, "res", res);
   return  Response.json({msg:"Note updated"});
 }
@@ -21,6 +21,6 @@ export async function GET(
   { params }: { params: Promise<{ noteId: string }> },
 ) {
   const { noteId } = await params;
-  const note = await db.select().from(notes).where(eq(notes.uuid, noteId));
+  const note = await db.select().from(notes).where(eq(notes.id, noteId));
   return Response.json(note)
 }

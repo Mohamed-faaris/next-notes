@@ -7,14 +7,40 @@ import { useMemo, useRef } from "react";
 import { codeBlock } from "@blocknote/code-block";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { not } from "drizzle-orm";
+
+const b = [
+  {
+    id: "a0560769-7980-4e23-b48c-62bdc59e9e12",
+    type: "paragraph",
+    props: {
+      textColor: "default",
+      backgroundColor: "default",
+      textAlignment: "left",
+    },
+    content: [
+      { type: "text", text: "Welcome to this demo!faaris", styles: {} },
+    ],
+    children: [],
+  },
+  {
+    id: "9cc99135-69e0-4b58-8659-3c79bc20274d",
+    type: "paragraph",
+    props: {
+      textColor: "default",
+      backgroundColor: "default",
+      textAlignment: "left",
+    },
+    content: [],
+    children: [],
+  },
+];
 
 async function fetchNoteContent(noteId: string) {
   const res = await fetch(`/api/notes/${noteId}`);
   if (!res.ok) return undefined;
   const data = await res.json();
   try {
-    return JSON.parse(data[0].content) as PartialBlock[];
+    return data[0].content as PartialBlock[];
   } catch {
     return undefined;
   }
@@ -28,15 +54,18 @@ export default function Editor({noteId}: {noteId: string}) {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["note-",noteId],
+    queryKey: ["note",noteId],
     queryFn:() => fetchNoteContent(noteId),
   });
 
   const editor = useMemo(() => {
     if (isLoading) return undefined;
-    // Fallback to some default content if API returns nothing
+    const safeInitialContent: PartialBlock[] = []
+    console.log("initialContent", initialContent);
+    console.log("safeInitialContent",initialContent?.filter((block,index) => {index != initialContent?.length-1}));
     return BlockNoteEditor.create({
-      initialContent: initialContent || [
+      initialContent: //safeInitialContent ||
+       [
         { type: "paragraph", content: "Welcome to this demo!" },
       ],
       codeBlock,
@@ -56,7 +85,7 @@ export default function Editor({noteId}: {noteId: string}) {
       clearTimeout(timer.current);
     }
     timer.current = window.setTimeout(() => {
-      fetch("/api/notes/test", {
+      fetch(`/api/notes/${noteId}`, {
         method: "POST",
         body: JSON.stringify({
           content: JSON.stringify(blocks),
