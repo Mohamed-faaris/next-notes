@@ -58,6 +58,9 @@ export const authConfig = {
       }
       return session;
     },
+    async redirect() {
+      return '/dashboard'
+    }
   },
   pages: {
     signIn: "/auth/signin",

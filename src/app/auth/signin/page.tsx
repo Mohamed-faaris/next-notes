@@ -16,13 +16,10 @@ export default function Signin() {
     setLoading(true);
     setError("");
     const res = await signIn("credentials", {
-      ...form,
-      redirect: false,
+      ...form
     });
     if (res?.error) {
       setError("Invalid email or password");
-    } else {
-      window.location.href = "/";
     }
     setLoading(false);
   };

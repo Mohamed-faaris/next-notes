@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const [form, setForm] = useState({
@@ -10,6 +11,7 @@ export default function Signup() {
     confirmPassword: "",
   });
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const registerMutation = useMutation({
     mutationFn: async (form: {
@@ -17,13 +19,14 @@ export default function Signup() {
       email: string;
       password: string;
     }) => {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Registration failed");
+      if (data.redirect) router.push(data.redirect);
       return data;
     },
     onSuccess: () => {
