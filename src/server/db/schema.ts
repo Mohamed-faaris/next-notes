@@ -1,32 +1,34 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { relations } from "drizzle-orm";
 import crypto from "crypto";
 
 export const users = sqliteTable("users", {
-  uuid: text("uuid")
+  id: text("id")
     .notNull()
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
 
   name: text("name").notNull(),
   password: text("password").notNull(),
-  email: text("email").notNull(),
+  email: text("email").notNull().unique(),
 
   createdAt: text("created_at").notNull().default("CURRENT_TIMESTAMP"),
   updatedAt: text("updated_at").notNull().default("CURRENT_TIMESTAMP"),
 });
+export const usersEmailIndex = index("users_email_idx").on(users.email);
 
 export const notes = sqliteTable("notes", {
-  uuid: text("uuid")
+  id: text("id")
     .notNull()
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
 
-  content: text("content").notNull(),
+  title: text("title").notNull(),
+  content: text("content").notNull().default(""),
 
   userId: text("user_id")
     .notNull()
-    .references(() => users.uuid, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" }),
 
   createdAt: text("created_at").notNull().default("CURRENT_TIMESTAMP"),
   updatedAt: text("updated_at").notNull().default("CURRENT_TIMESTAMP"),
@@ -41,6 +43,6 @@ export const userRelations = relations(users, ({ many }) => ({
 export const noteRelations = relations(notes, ({ one }) => ({
   user: one(users, {
     fields: [notes.userId],
-    references: [users.uuid],
+    references: [users.id],
   }),
 }));

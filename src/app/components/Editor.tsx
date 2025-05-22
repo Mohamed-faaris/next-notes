@@ -5,14 +5,12 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { codeBlock } from "@blocknote/code-block";
+import Link from "next/link";
 
 async function loadFromApi() {
   const res = await fetch("/api/notes/test");
   if (!res.ok) return undefined;
-  const data = await res.json();
-  console.log("res", data[0].content);  
-  
-  // If your API returns { content: string }, parse it:
+  const data = await res.json();  
     try {
       return JSON.parse(data[0].content) as PartialBlock[];
     } catch {
@@ -28,7 +26,6 @@ export default function Editor() {
 
   useEffect(() => {
     loadFromApi().then((content) => {
-      console.log("content-use effect", content);
       setInitialContent(content);
     });
 
@@ -40,11 +37,11 @@ export default function Editor() {
     return BlockNoteEditor.create({
       initialContent: initialContent || [
         { type: "paragraph", content: "Welcome to this demo!" },
-      ],
+      ],codeBlock
     });
   }, [initialContent]);
 
-  if (!editor) return <div>Loading content...</div>;
+  if (!editor) return <div>404 Note Not Found<Link href={"/dashboard"}>new note</Link></div>;
   function saveToApi(blocks: PartialBlock[]) {
     console.log("saving");
     if (timer.current) {
