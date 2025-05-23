@@ -20,11 +20,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^1.2.9",
     "@auth/drizzle-adapter": "^1.7.2",
     "@blocknote/code-block": "^0.30.0",
     "@blocknote/core": "^0.30.0",
     "@blocknote/mantine": "^0.30.0",
     "@blocknote/react": "^0.30.0",
+    "@blocknote/xl-ai": "^0.31.1",
     "@libsql/client": "^0.14.0",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tanstack/react-query": "^5.76.1",

@@ -1,5 +1,5 @@
 "use client"
-import type { PartialBlock } from "@blocknote/core";
+import type { InlineContent, PartialBlock } from "@blocknote/core";
 import { useQuery } from "@tanstack/react-query";
 import Editor from "./Editor";
 
@@ -8,17 +8,20 @@ async function fetchNoteContent(noteId: string) {
   if (!res.ok) return undefined;
   const data = await res.json();
   try {
-    return data[0].content as PartialBlock[];
+    return data;
   } catch {
     return undefined;
   }
 }
+
+
 
 export default function EditorLoader({ noteId }: { noteId: string }) {
   const {
     data: initialContent,
     isLoading,
     isError,
+    error
   } = useQuery({
     queryKey: ["note", noteId],
     queryFn: () => fetchNoteContent(noteId),
@@ -26,6 +29,7 @@ export default function EditorLoader({ noteId }: { noteId: string }) {
     if (isLoading) {
         return <div>Loading...</div>;
     } else if (isError) {
+        console.error("Error loading note:", error);
         return <div>Error loading note</div>;
     }
     else if (initialContent) {

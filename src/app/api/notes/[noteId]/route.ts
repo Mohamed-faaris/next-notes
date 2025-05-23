@@ -21,6 +21,7 @@ export async function GET(
   { params }: { params: Promise<{ noteId: string }> },
 ) {
   const { noteId } = await params;
-  const note = await db.select().from(notes).where(eq(notes.id, noteId));
+  const [note] = await db.select().from(notes).where(eq(notes.id, noteId));
+  
   return Response.json(note)
 }
