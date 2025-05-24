@@ -9,15 +9,25 @@ import { useRef, useState } from "react";
 import { codeBlock } from "@blocknote/code-block";
 import Link from "next/link";
 
-
-
-
-export default function Editor({noteId,initialContent}:{noteId:string ,initialContent:any }) {
+export default function Editor({
+  noteId,
+  initialContent,
+}: {
+  noteId: string;
+  initialContent: any;
+}) {
   // Fix timer type for browser
   const timer = useRef<number | null>(null);
-  const content = JSON.parse(initialContent.content);
-  console.log("editor", noteId,content);
-  
+  let content = null;
+  try {
+    content = JSON.parse(initialContent.content);
+  } catch (e) {
+    console.log("JSON PARSE error", e);
+    content = null;
+  }
+  if (!content || content === "{}" || content === "[]") content = "";
+
+  console.log("editor", noteId, content);
 
   const editor = useCreateBlockNote({
     codeBlock,
@@ -31,7 +41,6 @@ export default function Editor({noteId,initialContent}:{noteId:string ,initialCo
     //   }),
     // ],
     initialContent: content,
-    
   });
 
   function saveToApi(blocks: PartialBlock[]) {

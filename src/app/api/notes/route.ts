@@ -19,6 +19,6 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { title } = body
     if (!title) return NextResponse.json({ error: "Title is required" }, { status: 400 })
-    const note = await insertNote(title, session.user.id)
-    return NextResponse.json({ note }, { status: 201 })
+    const noteId = await insertNote(title, session.user.id)
+    return NextResponse.json({ noteId }, { status: 201 })
 }
