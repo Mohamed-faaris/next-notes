@@ -73,7 +73,7 @@ export default function Signup() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       <div className="mx-auto mt-8 max-w-md">
         <h2 className="mb-4 text-2xl font-bold">Sign Up</h2>
         <form onSubmit={handleSubmit} className="space-y-3" autoComplete="on">
