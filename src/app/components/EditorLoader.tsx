@@ -34,7 +34,7 @@ export default function EditorLoader({ noteId }: { noteId: string }) {
     }
     else if (initialContent) {
         return (
-          <div>
+          <div className="m-10">
             <Editor noteId={noteId} initialContent={initialContent} />
           </div>
         );

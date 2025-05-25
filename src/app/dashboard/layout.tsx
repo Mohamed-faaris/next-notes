@@ -8,10 +8,9 @@ export default function dashboardLayout({
 }) {
   return (
     <div className="flex h-screen flex-col">
-      <Navbar />
       <div className="flex h-full">
         <Sidebar />
-        <main className="h-full w-full bg-[#1f1f1f] text-white">{children}</main>
+        <main className="h-full w-full bg-[#1f1f1f] text-white overflow-y-scroll">{children}</main>
       </div>
     </div>
   );

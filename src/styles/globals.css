@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Emblema+One&family=Tsukimi+Rounded&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-Tsukimi: 'Tsukimi Rounded', sans-serif;
 }

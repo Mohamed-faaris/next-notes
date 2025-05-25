@@ -15,6 +15,11 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    TURSO_DATABASE_URL: z.string().url(),
+    TURSO_AUTH_TOKEN: z.string(),
+    DATABASE_URL_ONLINE: z.string(),
+    REACT_EDITOR: z.string().optional(),
+    GROQ_API_KEY: z.string().optional(),
   },
 
   /**
@@ -34,6 +39,11 @@ export const env = createEnv({
     AUTH_SECRET: process.env.AUTH_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
+    TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
+    DATABASE_URL_ONLINE: process.env.DATABASE_URL_ONLINE,
+    REACT_EDITOR: process.env.REACT_EDITOR,
+    GROQ_API_KEY: process.env.GROQ_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
