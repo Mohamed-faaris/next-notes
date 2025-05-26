@@ -64,3 +64,30 @@ See `.env.example` for required environment variables (database URL, auth secret
 ## License
 
 MIT
+
+## Workflow
+
+1. **Sign Up / Sign In**
+   - Users register or log in with their email and password.
+   - Authentication is handled securely with NextAuth.js and Drizzle ORM.
+
+2. **Dashboard**
+   - After login, users are redirected to the dashboard.
+   - The dashboard displays a list of all notes created by the user.
+   - Users can create a new note by entering a title and clicking "Create Note".
+
+3. **Note Creation & Editing**
+   - Clicking a note opens it in the rich text editor.
+   - Users can write, format, and organize content using blocks (text, headings, lists, code, images, audio, etc.).
+   - Notes are auto-saved as you type.
+   - Note titles can be edited directly from the dashboard.
+
+4. **AI Features (Optional)**
+   - If configured, users can access AI-powered features (e.g., content suggestions, summarization) in the editor.
+
+5. **Data Storage & Security**
+   - All notes and user data are stored in a SQLite database.
+   - API routes are protected; only authenticated users can access or modify their notes.
+
+6. **Extending the Workflow**
+   - The app is designed to be extensible: add tags, sharing, export, or collaboration as needed.
