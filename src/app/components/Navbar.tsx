@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export default function Navbar() {
-    return (
-        <nav className="bg-gray-900 h-16 text-white flex items-center px-4 font-Tsukimi">
-            NextNotes
-        </nav>
-    )
+  return (
+    <nav className="font-Tsukimi flex h-16 items-center bg-gray-900 px-4 text-white">
+      <Link href={"/dashboard"}>NextNotes</Link>
+    </nav>
+  );
 }

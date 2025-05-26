@@ -12,7 +12,6 @@ export async function POST(
   .update(notes)
   .set({ content: content })
   .where(eq(notes.id, noteId));
-  console.log("noteId", noteId, "content", content, "res", res);
   return  Response.json({msg:"Note updated"});
 }
 
