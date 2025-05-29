@@ -1,5 +1,5 @@
 "use client";
-import { Block, BlockNoteEditor, PartialBlock } from "@blocknote/core";
+import { type PartialBlock } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";

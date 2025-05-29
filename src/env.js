@@ -1,5 +1,5 @@
 import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { optional, z } from "zod";
 
 export const env = createEnv({
   /**
@@ -11,13 +11,11 @@ export const env = createEnv({
       process.env.NODE_ENV === "production"
         ? z.string()
         : z.string().optional(),
-    DATABASE_URL: z.string().url(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    TURSO_DATABASE_URL: z.string().url(),
-    TURSO_AUTH_TOKEN: z.string(),
-    DATABASE_URL_ONLINE: z.string(),
+    DATABASE_URL: z.string().url(),
+    AUTH_TOKEN: z.string().optional(),
     REACT_EDITOR: z.string().optional(),
     GROQ_API_KEY: z.string().optional(),
   },
@@ -37,11 +35,9 @@ export const env = createEnv({
    */
   runtimeEnv: {
     AUTH_SECRET: process.env.AUTH_SECRET,
-    DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
-    TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
-    TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
-    DATABASE_URL_ONLINE: process.env.DATABASE_URL_ONLINE,
+    DATABASE_URL: process.env.DATABASE_URL,
+    AUTH_TOKEN: process.env.AUTH_TOKEN,
     REACT_EDITOR: process.env.REACT_EDITOR,
     GROQ_API_KEY: process.env.GROQ_API_KEY,
   },
