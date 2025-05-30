@@ -1,13 +1,19 @@
 "use client";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function List() {
   const noteId = useParams().noteId;
+  const router = useRouter();
   const data = useQuery({
     queryKey: ["titles"],
-    queryFn: () => fetch("/api/notes").then((res) => res.json()),
+    queryFn: async () => {
+      const res = await fetch("/api/notes");
+      const data = await res.json();
+      if(data?.redirect) router.push(data.redirect);
+      return data;
+    },
   });
   const notes = data.data?.titles || [];
   return (

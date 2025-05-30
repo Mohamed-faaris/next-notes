@@ -5,12 +5,13 @@ import { db } from "~/server/db";
 import { notes } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
 
+
 export async function GET(request: Request) {
   const session = await auth();
   //if(!session?.user?.id) return NextResponse.json({ error: "Unauthorized",redirect:"auth/signin" }, { status: 401 })
+  
   if (!session?.user?.id) {
-    const titles = await getNoteTitlesByUserId("test");
-    return NextResponse.json({ titles }, { status: 200 });
+    return NextResponse.json({ message:"no user found",redirect:"/auth/signin" }, { status: 401 });
   }
   const titles = await getNoteTitlesByUserId(session.user.id);
   return NextResponse.json({ titles }, { status: 200 });
