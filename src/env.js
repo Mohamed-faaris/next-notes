@@ -52,3 +52,7 @@ export const env = createEnv({
    */
   emptyStringAsUndefined: true,
 });
+
+
+// for debugging purposes
+// if(env.NODE_ENV != "production") console.log(env)

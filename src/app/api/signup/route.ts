@@ -28,6 +28,7 @@ export async function POST(request: Request) {
     await db.insert(users).values({ email, name, password: hashedPassword });
     return NextResponse.json({ success: true,redirect:"/auth/signin" });
   } catch (error) {
+    console.log("Registration error:", error);
     return NextResponse.json({ error: "Registration failed" }, { status: 500 });
   }
 }

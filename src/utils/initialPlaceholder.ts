@@ -133,18 +133,3 @@ export const initialPlaceholder: PartialBlock[] = [
     type: "paragraph",
   },
 ];
-
-const timer = useRef<NodeJS.Timeout | null>(null);
-function save() {
-  console.log("saving");
-  if (timer.current) {
-    clearTimeout(timer.current);
-  }
-  timer.current = setTimeout(() => {
-    fetch("/api/notes/test", {
-      method: "POST",
-      body: JSON.stringify({ content: JSON.stringify(editor.document) }),
-    });
-    console.log("saved");
-  }, 1000);
-}
