@@ -60,6 +60,12 @@ export default function Signin() {
         {error && (
           <p className="mt-3 text-center text-sm text-red-600">{error}</p>
         )}
+        <p className="mt-4 text-center text-sm">
+          Don't have an account?{" "}
+          <a href="/auth/signup" className="text-blue-400 hover:underline">
+            Sign up
+          </a>
+        </p>
       </div>
     </main>
   );

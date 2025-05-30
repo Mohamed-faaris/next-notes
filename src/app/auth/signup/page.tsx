@@ -130,6 +130,12 @@ export default function Signup() {
         {message && (
           <p className="mt-3 text-center text-sm text-blue-700">{message}</p>
         )}
+        <p className="mt-4 text-center text-sm">
+          Already have an account?{" "}
+          <a href="/auth/signin" className="text-blue-400 hover:underline">
+            Sign in
+          </a>
+        </p>
       </div>
     </main>
   );
