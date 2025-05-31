@@ -61,14 +61,14 @@ export const authConfig = {
       }
       return session;
     },
-    // redirect({ url, baseUrl }) {
-    //   // Allow only URLs on the same origin
-    //   if (url.startsWith("/")) return new URL(url, baseUrl).toString();
-    //   // Allow only safe external URLs (optional security)
-    //   if (url.startsWith(baseUrl)) return url;
-    //   // Default to baseUrl (home page) if invalid
-    //   return baseUrl;
-    // },
+    redirect({ url, baseUrl }) {
+      // Allow only URLs on the same origin
+      if (url.startsWith("/")) return new URL(url, baseUrl).toString();
+      // Allow only safe external URLs (optional security)
+      if (url.startsWith(baseUrl)) return url;
+      // Default to baseUrl (home page) if invalid
+      return baseUrl;
+    },
   },
   session: { strategy: "jwt" },
   pages: {
