@@ -1,11 +1,20 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Signin() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const mutation = useMutation({
+    mutationFn: async (form: { email: string; password: string }) => {
+      const res = await signIn("credentials", { ...form, redirect: false });
+      if (res?.error) throw new Error("Invalid email or password");
+      return res;
+    },
+    onError: () => setError("Invalid email or password"),
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,15 +22,8 @@ export default function Signin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-    const res = await signIn("credentials", {
-      ...form,
-    });
-    if (res?.error) {
-      setError("Invalid email or password");
-    }
-    setLoading(false);
+    mutation.mutate(form);
   };
 
   return (
@@ -51,10 +53,10 @@ export default function Signin() {
           />
           <button
             type="submit"
-            disabled={loading}
+            disabled={mutation.isPending}
             className="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:opacity-60"
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {mutation.isPending ? "Signing in..." : "Sign In"}
           </button>
         </form>
         {error && (

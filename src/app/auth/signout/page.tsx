@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export default function SignOutPage() {
   useEffect(() => {
-    signOut({ redirect: true, callbackUrl: "/" });
+    signOut({ redirect: true, callbackUrl: "/auth/signin" });
   }, []);
 
   return(
