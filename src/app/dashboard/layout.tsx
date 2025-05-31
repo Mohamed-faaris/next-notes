@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/sidebar/Navbar";
 import Sidebar from "../components/sidebar/Sidebar";
 
 export default function dashboardLayout({
@@ -10,7 +10,9 @@ export default function dashboardLayout({
     <div className="flex h-screen flex-col">
       <div className="flex h-full">
         <Sidebar />
-        <main className="h-full w-full bg-[#1f1f1f] text-white overflow-y-scroll">{children}</main>
+        <main className="h-full w-full overflow-y-scroll bg-[#1f1f1f] text-white">
+          {children}
+        </main>
       </div>
     </div>
   );

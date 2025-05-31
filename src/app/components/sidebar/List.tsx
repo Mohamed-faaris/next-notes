@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
-import DeleteIcon from "../DeleteIcon";
+import DeleteIcon from "../icons/DeleteIcon";
 
 export default function List() {
   const noteId = useParams().noteId;
@@ -35,7 +35,7 @@ export default function List() {
   });
   const notes = data.data?.titles || [];
   return (
-    <>
+    <div className="flex-grow">
       {notes.map((note: { id: string; title: string }) => (
         <Link href={`/dashboard/${note.id}`} key={note.id}>
           <div
@@ -48,6 +48,6 @@ export default function List() {
           </div>
         </Link>
       ))}
-    </>
+    </div>
   );
 }

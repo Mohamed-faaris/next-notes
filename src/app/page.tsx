@@ -12,8 +12,7 @@ export default function HomePage() {
       <JsonBlock data={{session:session.status,data:session.data} } />
       <div className="flex flex-col items-center gap-4 mt-8">
         <Link href="/dashboard" className={`hover:underline ${session.status === "authenticated" ? "text-green-400" : "text-red-400"}`}>
-          Go to 
-          dashboard
+          Go to dashboard
         </Link>
         <Link href="/auth/signin" className={`text-green-400`}>sign in</Link>
         <Link href="/auth/signup" className={`text-green-400`}>sign up</Link>

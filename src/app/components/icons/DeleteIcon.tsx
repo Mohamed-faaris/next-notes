@@ -4,7 +4,7 @@ export default function DeleteIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${className || ""} cursor-pointer stroke-black transition-colors duration-300 hover:stroke-red-600`}
+      className={`${className || ""} cursor-pointer stroke-gray-200 transition-colors duration-300 hover:stroke-red-600`}
     >
       <g id="SVGRepo_iconCarrier">
         <path
