@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useQuery, type MutationStatus } from "@tanstack/react-query";
+import { Query, useMutation, useQuery, useQueryClient, type MutationStatus } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { use, useState } from "react";
 
@@ -44,6 +44,7 @@ function Button({
 export default function Dashboard() {
   const router = useRouter();
   const [title, setTitle] = useState("");
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationKey: ["createNote"],
     mutationFn: async () => {
@@ -61,6 +62,7 @@ export default function Dashboard() {
     },
     onSuccess: (data) => {
       setTitle("");
+      queryClient.invalidateQueries({queryKey:["titles"]});
       router.push(`/dashboard/${data.noteId}`);
     },
   });
