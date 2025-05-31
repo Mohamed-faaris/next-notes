@@ -7,9 +7,6 @@ import { users } from "~/server/db/schema";
 import bcrypt from "bcryptjs";
 import type { JWT } from "next-auth/jwt";
 
-
-
-
 export const authConfig = {
   providers: [
     CredentialsProvider({
@@ -37,15 +34,18 @@ export const authConfig = {
           user.password,
         );
         if (!isPasswordValid) return null;
-        return user;
+        console.log("isPasswordValid", isPasswordValid);
+        return {
+          id: user.id ,
+          email: user.email,
+          name: user.name,
+        };
       },
     }),
   ],
   callbacks: {
-    async jwt({
-      token,
-      user,
-    }) {
+    async jwt({ token, user }) {
+      console.log("JWT Callback", { token, user });
       if (user && "id" in user) {
         token.id = user.id;
         token.email = user.email;
@@ -61,10 +61,16 @@ export const authConfig = {
       }
       return session;
     },
-    async redirect() {
-      return "/dashboard";
-    },
+    // redirect({ url, baseUrl }) {
+    //   // Allow only URLs on the same origin
+    //   if (url.startsWith("/")) return new URL(url, baseUrl).toString();
+    //   // Allow only safe external URLs (optional security)
+    //   if (url.startsWith(baseUrl)) return url;
+    //   // Default to baseUrl (home page) if invalid
+    //   return baseUrl;
+    // },
   },
+  session: { strategy: "jwt" },
   pages: {
     signIn: "/auth/signin",
     newUser: "/auth/signup",

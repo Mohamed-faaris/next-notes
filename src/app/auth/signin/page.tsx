@@ -2,18 +2,27 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export default function Signin() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: async (form: { email: string; password: string }) => {
-      const res = await signIn("credentials", { ...form, redirect: false });
-      if (res?.error) throw new Error("Invalid email or password");
+      const res = await signIn("credentials", { ...form ,redirect: false });
+      if (res?.error) throw new Error(`Invalid email or password ${JSON.stringify(res)}`);
       return res;
     },
-    onError: () => setError("Invalid email or password"),
+    onError: (error) => {
+      console.log(error.message);
+      setError("Invalid email or password");
+    },
+    onSuccess:()=>{
+      console.log("Sign in successful");
+      router.push("/dashboard");
+    }
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
