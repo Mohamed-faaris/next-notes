@@ -8,7 +8,7 @@ import SignOut from "./SignOut";
 
 export default function Sidebar() {
   return (
-    <aside className="h-full w-64 bg-gray-800 flex flex-col">
+    <aside className="h-full max-h-full w-64 bg-gray-800 flex flex-col">
       <Navbar />
       <List />
       <SignOut />

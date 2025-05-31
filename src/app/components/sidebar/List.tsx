@@ -35,7 +35,7 @@ export default function List() {
   });
   const notes = data.data?.titles || [];
   return (
-    <div className="flex-grow">
+    <div className="flex-shrink flex-grow overflow-scroll">
       {notes.map((note: { id: string; title: string }) => (
         <Link href={`/dashboard/${note.id}`} key={note.id}>
           <div
