@@ -77,7 +77,7 @@ export default function Dashboard() {
       <div className="flex w-1/3">
         <input
           type="text"
-          className="flex-grow bg-gray-800 p-2 text-white"
+          className="flex-grow bg-gray-800 p-2 text-white rounded"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
